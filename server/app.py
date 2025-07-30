@@ -17,7 +17,13 @@ class Books(Resource):
         per_page = request.args.get("per_page", 5, type=int)
         pagination = Book.query.paginate(page=page, per_page=per_page, error_out=False)
         books = pagination.items
-        return books, 200
+        return {
+            "page": page,
+            "per_page": per_page,
+            "total": pagination.total,
+            "total_pages": pagination.pages,
+            "items": [BookSchema().dump(book) for book in books]
+        }, 200
 
 
 api.add_resource(Books, '/books', endpoint='books')
