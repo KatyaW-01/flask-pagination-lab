@@ -1,4 +1,4 @@
-# app_config.py
+#config.py
 from flask import Flask
 from flask_migrate import Migrate
 from flask_restful import Api
